@@ -27,7 +27,8 @@ export default class MyCamera {
         
         this.perspectiveCamera = new THREE.PerspectiveCamera(35, this.sizes.aspect, 0.1, 1000)
         this.scene.add(this.perspectiveCamera);
-        this.perspectiveCamera.position.z = 5;
+        this.perspectiveCamera.position.z = 10;
+        this.perspectiveCamera.position.y = 10;
 
         
     };
@@ -42,6 +43,7 @@ export default class MyCamera {
             100
         );
         
+        
         this.scene.add(this.orthographicCamera);
 
         const size = 10;  
@@ -51,7 +53,7 @@ export default class MyCamera {
 
         const axesHelper = new THREE.AxesHelper( 10 );
         this.scene.add( axesHelper );
-
+        
         
     }
 
@@ -73,6 +75,6 @@ export default class MyCamera {
     }
 
     update() {
-        
+        if (this.controls) this.controls.update();
     }
 }
