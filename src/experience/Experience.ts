@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import MyCamera from "./MyCamera";
 import MyRenderer from "./MyRenderer";
+import { assets } from "./utils/assets";
+import Resources from "./utils/Resources";
 import Sizes from "./utils/Sizes";
 import Time from "./utils/Time";
 import World from "./world/World";
@@ -9,11 +11,12 @@ export default class Experience {
     canvas;
     static instance: Experience;
     sizes!: Sizes  
-    scene!: THREE.Scene;
+    scene!: THREE.Scene;  
     camera!: MyCamera;
     MyRenderer!: MyRenderer;
     time!: Time;
     world!: World;
+    resources!: Resources;
 
     constructor(canvas?: HTMLCanvasElement) {  
         
@@ -27,6 +30,8 @@ export default class Experience {
         this.camera = new MyCamera();
         this.MyRenderer = new MyRenderer();
         this.time = new Time ();
+        this.resources = new Resources(assets);
+
         this.world = new World();  
         
         this.time.on("update", () => {

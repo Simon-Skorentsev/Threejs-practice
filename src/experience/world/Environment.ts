@@ -11,20 +11,34 @@ export default class Environment {
         this.experience = new Experience();
         this.scene = this.experience.scene;
 
-        this.setSunlight();
+        this.newLight();
+
+        this.scene.fog = new THREE.Fog("#f7d9aa");
     }
 
-    setSunlight() {
-        this.sunlight = new THREE.DirectionalLight("#ffffff", 3);
-        this.sunlight.castShadow = true;  
-        this.sunlight.shadow.camera.far = 20;
-        this.sunlight.shadow.mapSize.set(1024, 1024);  
-        this.sunlight.shadow.normalBias = 0.05;
-        this.sunlight.position.set(1.5, 7, 3);
-        this.scene.add(this.sunlight);
+    newLight() {
+        const hemisphereLight = new THREE.HemisphereLight("#aaaaaa", "#000000", .9)  
+        this.scene.add(new THREE.HemisphereLightHelper(hemisphereLight, 50));
 
-        this.ambientLight = new THREE.AmbientLight("#ffffff", 1);  
+        const shadowLight = new THREE.DirectionalLight("#ffffff", .9);
         
+        shadowLight.position.set(150, 350, 350);
+        
+        shadowLight.castShadow = true;
+        
+        shadowLight.shadow.camera.left = -400;
+        shadowLight.shadow.camera.right = 400;
+        shadowLight.shadow.camera.top = 400;
+        shadowLight.shadow.camera.bottom = -400;
+        shadowLight.shadow.camera.near = 1;
+        shadowLight.shadow.camera.far = 1000;
+        
+        shadowLight.shadow.mapSize.set(2048, 2048);
+        
+        this.scene.add(hemisphereLight);
+        this.scene.add(shadowLight);
+        this.scene.add(new THREE.DirectionalLightHelper(shadowLight, 50));
+
     }
 
     resize() {

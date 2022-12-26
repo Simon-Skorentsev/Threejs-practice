@@ -25,52 +25,51 @@ export default class MyCamera {
 
     createPerspectiveCamera() {
         
-        this.perspectiveCamera = new THREE.PerspectiveCamera(35, this.sizes.aspect, 0.1, 1000)
+        this.perspectiveCamera = new THREE.PerspectiveCamera(60, this.sizes.aspect, 0.1, 10000);  
         this.scene.add(this.perspectiveCamera);
-        this.perspectiveCamera.position.z = 10;
-        this.perspectiveCamera.position.y = 10;
-
-        
+        this.perspectiveCamera.position.z = 200;
+        this.perspectiveCamera.position.y = 100;
     };
 
     createOrthographicCamera() {
         this.orthographicCamera = new THREE.OrthographicCamera(  
-            -this.sizes.aspect * this.sizes.frustum / 2,  
-            this.sizes.aspect * this.sizes.frustum / 2,
-            this.sizes.frustum / 2,
-            -this.sizes.frustum / 2,
+            -this.sizes.aspect * this.sizes.frustum / .2,  
+            this.sizes.aspect * this.sizes.frustum / .2,
+            this.sizes.frustum / .2,
+            -this.sizes.frustum / .2,
             -100,
-            100
+            1000
         );
-        
-        
+        this.orthographicCamera.position.y = 100;
+        this.orthographicCamera.position.z = 200;
+
+        this.orthographicCamera.lookAt(new THREE.Vector3(0,0,0))
         this.scene.add(this.orthographicCamera);
 
-        const size = 10;  
+        const size = 100;  
         const divisions = 10; 
         const gridHelper = new THREE.GridHelper( size, divisions ); 
         this.scene.add( gridHelper );
 
-        const axesHelper = new THREE.AxesHelper( 10 );
+        const axesHelper = new THREE.AxesHelper( 75 );
         this.scene.add( axesHelper );
-        
-        
     }
 
     setOrbitControls() {
         this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);  
         this.controls.enableDamping = true;  
         this.controls.enableZoom = true;  
+        this.controls.target = new THREE.Vector3(0, 100, 0);  
     }
 
     resize() {
         this.perspectiveCamera.aspect = this.sizes.aspect;
         this.perspectiveCamera.updateProjectionMatrix();  
 
-        this.orthographicCamera.left = -this.sizes.aspect * this.sizes.frustum / 2;
-        this.orthographicCamera.right = this.sizes.aspect * this.sizes.frustum / 2;
-        this.orthographicCamera.top = this.sizes.frustum / 2;
-        this.orthographicCamera.bottom = -this.sizes.frustum / 2;
+        this.orthographicCamera.left = -this.sizes.aspect * this.sizes.frustum / .2;
+        this.orthographicCamera.right = this.sizes.aspect * this.sizes.frustum / .2;
+        this.orthographicCamera.top = this.sizes.frustum / .2;
+        this.orthographicCamera.bottom = -this.sizes.frustum / .2;
         this.orthographicCamera.updateProjectionMatrix();
     }
 

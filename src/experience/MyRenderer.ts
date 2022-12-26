@@ -26,13 +26,14 @@ export default class MyRenderer {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,  
+            alpha: true,  
         });
-
         
         this.renderer.physicallyCorrectLights = true;  
-        this.renderer.outputEncoding = THREE.sRGBEncoding;  
+        this.renderer.outputEncoding = THREE.LinearEncoding;  
         this.renderer.toneMapping = THREE.CineonToneMapping;  
-        this.renderer.toneMappingExposure = 1.75;
+        this.renderer.toneMapping = THREE.LinearToneMapping;
+        this.renderer.toneMappingExposure = 2.6;
         this.renderer.shadowMap.enabled = true;  
         this.renderer.shadowMap.type = THREE.PCFShadowMap;  
         this.renderer.setSize(this.sizes.width, this.sizes.height);
@@ -45,11 +46,8 @@ export default class MyRenderer {
     }
 
     update() {
-        
-        
         this.renderer.setViewport(0, 0, this.sizes.width, this.sizes.height);  
         this.renderer.render(this.scene, this.myCamera.perspectiveCamera);
-
         
         const x = this.sizes.width - this.sizes.width / 3,
             y = this.sizes.height - this.sizes.height / 3,
