@@ -19,7 +19,6 @@ export default class MyRenderer {
         this.myCamera = this.experience.camera;
 
         this.setRenderer();
-
     }
 
     setRenderer() {
@@ -28,7 +27,6 @@ export default class MyRenderer {
             antialias: true,  
             alpha: true,  
         });
-        
         this.renderer.physicallyCorrectLights = true;  
         this.renderer.outputEncoding = THREE.LinearEncoding;  
         this.renderer.toneMapping = THREE.CineonToneMapping;  
@@ -48,15 +46,14 @@ export default class MyRenderer {
     update() {
         this.renderer.setViewport(0, 0, this.sizes.width, this.sizes.height);  
         this.renderer.render(this.scene, this.myCamera.perspectiveCamera);
-        
-        const x = this.sizes.width - this.sizes.width / 3,
-            y = this.sizes.height - this.sizes.height / 3,
-            width = this.sizes.width / 3,
-            height = this. sizes.height / 3;
+        const n = 4;
+        const x = this.sizes.width - this.sizes.width / n,
+            y = this.sizes.height - this.sizes.height / n,
+            width = this.sizes.width / n,
+            height = this. sizes.height / n;
         this.renderer.setScissorTest(true);  
         this.renderer.setViewport(x, y, width, height);
         this.renderer.setScissor(x, y, width, height);
-        
         this.renderer.render(this.scene, this.myCamera.orthographicCamera);
         this.renderer.setScissorTest(false);
     }

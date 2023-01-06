@@ -14,25 +14,19 @@ export default class Sky {
         this.scene = this.experience.scene;
         this.sky = new THREE.Object3D();
         this.nClouds = 20;
-        
         const stepAngle = Math.PI * 2 / this.nClouds;  
-
         for (let i = 0; i < this.nClouds; i++) {
             const cloud = this.createCloud();
-            
             const angle = stepAngle * i;
             const height = 750 + Math.random() * 200;
-
+            
             cloud.position.y = Math.sin(angle) * height;
             cloud.position.x = Math.cos(angle) * height;
             cloud.rotation.z = angle + Math.PI / 2;  
-            
             cloud.position.z = -400 - Math.random() * 400;
-            
             const s = 1 + Math.random() * 2;
             cloud.scale.set(s, s, s);
 
-            
             this.sky.add(cloud);
         }
 
@@ -49,6 +43,7 @@ export default class Sky {
         const nBlocks = 3 + Math.floor(Math.random() * 3);  
         
         for (let i = 0; i < nBlocks; i++) {
+            
             const block = new THREE.Mesh(geom, mat);
             
             block.position.x = i * 15;
@@ -59,13 +54,12 @@ export default class Sky {
 
             const s = .1 + Math.random() * .9;
             block.scale.set(s, s, s);
-            
+
             block.castShadow = true;
             block.receiveShadow = true;
             
             cloud.add(block);
         }
-
         return cloud;
     }
 

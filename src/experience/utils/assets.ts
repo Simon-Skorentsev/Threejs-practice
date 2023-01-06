@@ -1,9 +1,9 @@
 export const assets = [
-    // {
-    //     name: "spline-cube",
-    //     type: "glbModel",
-    //     path: "/models/cube.gltf"  //GLTFLoader сам будет тянуть с public
-    // }
+    {
+        name: "airplane",
+        type: "glbModel",
+        path: "/models/airplane.glb"  
+    }
 ]
 
 export type Assets = typeof  assets

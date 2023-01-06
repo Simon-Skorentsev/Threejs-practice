@@ -19,9 +19,9 @@ export default class World {
     title!: Title;
     environment!: Environment;
     resources: Resources;
-    sea: Sea;
-    sky: Sky;
-    airplane: Airplane;
+    sea!: Sea;
+    sky!: Sky;
+    airplane!: Airplane;
 
     constructor() {
         this.experience = new Experience();
@@ -31,20 +31,13 @@ export default class World {
         this.myCamera = this.experience.camera;
         this.resources = this.experience.resources;
 
-        // this.resources.on("ready", () => {
-        //     this.environment = new Environment();
-        //     this.title = new Title();
-        // });
-
-        this.environment = new Environment();  //TODO: уберри эти 2 строки если используешь внешние модели
-        this.title = new Title();
-        this.sea = new Sea();
-        this.sky = new Sky();
-        this.airplane = new Airplane();
-
-        this.airplane.airplane.scale.set(.25, .25, .25);
-        console.log(this.airplane.airplane);
-        
+        this.resources.on("ready", () => {
+            this.environment = new Environment();  
+            this.title = new Title();
+            this.sea = new Sea();
+            this.sky = new Sky();
+            this.airplane = new Airplane();
+        });
     }
 
     resize() {

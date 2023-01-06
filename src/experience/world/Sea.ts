@@ -10,21 +10,16 @@ export default class Sea {
     constructor() {
         this.experience = new Experience();
         this.scene = this.experience.scene;
-
         const geom = new THREE.CylinderGeometry(600, 600, 800, 40, 10);
         const material = new THREE.MeshPhongMaterial({
             color: colors.blue,
             transparent: true,  
             opacity: .6,  
-            
             flatShading: true,  
         });
-
         this.sea = new THREE.Mesh(geom, material);
-        
         this.sea.receiveShadow = true;
         this.sea.rotateX(Math.PI / 2);  
-
         this.sea.position.y = -600;  
         this.scene.add(this.sea);
     }
@@ -33,6 +28,6 @@ export default class Sea {
     }
 
     update() {
-        this.sea.rotateY(.0025);
+        this.sea.rotateY(.005);
     }
 }
